@@ -1,0 +1,54 @@
+<?php
+/**
+ * REST API
+ */
+
+use SangoBlocks\App;
+
+App::get('rest')->register(array(
+  'path' => 'color',
+  'methods' => 'POST',
+  'callback' => function ($req) {
+    $params = $req->get_params();
+    $name = $params['name'];
+    $code = $params['code'];
+    $id = isset($params['id']) ? $params['id'] : '';
+    $css = $params['css'];
+    if ($id) {
+      App::get('color')->update(array(
+        'id' => $id,
+        'name' => $name,
+        'code' => $code,
+      ));
+    } else {
+      App::get('color')->create(array(
+        'name' => $name,
+        'code' => $code,
+      ));
+    }
+    return array(
+      'ok' => 'ok'
+    );
+  }
+));
+
+App::get('rest')->register(array(
+  'path' => 'color',
+  'methods' => 'GET',
+  'callback' => function ($req) {
+    return App::get('color')->get();
+  }
+));
+
+App::get('rest')->register(array(
+  'path' => 'color',
+  'methods' => 'DELETE',
+  'callback' => function ($req) {
+    $params = $req->get_params();
+    $id = $params['id'];
+    App::get('color')->remove($id);
+    return array(
+      'ok' => 'ok'
+    );
+  }
+));

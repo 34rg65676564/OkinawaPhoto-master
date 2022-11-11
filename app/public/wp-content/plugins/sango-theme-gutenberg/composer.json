@@ -1,0 +1,11 @@
+{
+  "require": {
+    "embed/embed": "^3.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "SangoBlocks\\": "./dist/classes/"
+    }
+  },
+  "require-dev": {}
+}
